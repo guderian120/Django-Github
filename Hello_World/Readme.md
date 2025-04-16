@@ -1,0 +1,1 @@
+A simple Django api that returns "Hello World"
