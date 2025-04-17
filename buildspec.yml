@@ -12,14 +12,14 @@ phases:
   pre_build:
     commands:
       - echo "Running pre-build steps..."
-      - export DJANGO_SETTINGS_MODULE=your_project.settings  # Update this!
+      - export DJANGO_SETTINGS_MODULE=Hello_World.settings  # Update this!
       - python manage.py makemigrations
       - python manage.py migrate
 
   build:
     commands:
       - echo "Build phase - running tests (optional)"
-      - python manage.py test  # Remove if you don't want tests here
+      # - python manage.py test  # Remove if you don't want tests here
 
   post_build:
     commands:
