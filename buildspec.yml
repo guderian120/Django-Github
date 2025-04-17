@@ -16,18 +16,28 @@ phases:
       # - export DJANGO_SETTINGS_MODULE=Hello_World.settings  # ✅ Update if needed
       # - python manage.py makemigrations
       # - python manage.py migrate
-      - docker build -t django_github .
+      # - docker build -t django_github .
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 288761743924.dkr.ecr.eu-west-1.amazonaws.com
 
   build:
     commands:
-      - echo "Build phase - running tests (optional)"
-      # - python manage.py test
-      - docker images
-      - docker run django_github 
+      # - echo "Build phase - running tests (optional)"
+      # # - python manage.py test
+      # - docker images
+      # - docker run django_github
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker tag hello_django:v1 288761743924.dkr.ecr.eu-west-1.amazonaws.com/hello_django:v1
+  
 
   post_build:
     commands:
-      - echo "Post build - Build complete."
+      # - echo "Post build - Build complete."
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 288761743924.dkr.ecr.eu-west-1.amazonaws.com/hello_django:v1
 
 artifacts:
   files:
