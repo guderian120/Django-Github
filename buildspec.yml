@@ -1,28 +1,25 @@
 version: 0.2
-runtime-versions:
-  python: 3.11
-  
+
 phases:
   install:
-    runtime-versions:
-      python: 3.11  # Change if you're using a different version
     commands:
-      - echo "Installing dependencies..."
+      - echo "Installing system dependencies..."
+      - yum install -y gcc gcc-c++ make sqlite sqlite-devel bzip2 bzip2-devel zlib zlib-devel xz xz-devel libffi-devel
+      - echo "Installing Python dependencies..."
       - pip install --upgrade pip
-      - yum install -y sqlite sqlite-devel
       - pip install -r requirements.txt
 
   pre_build:
     commands:
       - echo "Running pre-build steps..."
-      - export DJANGO_SETTINGS_MODULE=Hello_World.settings  # Update this!
+      - export DJANGO_SETTINGS_MODULE=Hello_World.settings  # ✅ Update if needed
       - python manage.py makemigrations
       - python manage.py migrate
 
   build:
     commands:
       - echo "Build phase - running tests (optional)"
-      # - python manage.py test  # Remove if you don't want tests here
+      # - python manage.py test
 
   post_build:
     commands:
