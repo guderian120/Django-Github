@@ -1,5 +1,7 @@
 version: 0.2
-
+runtime-versions:
+  python: 3.11
+  
 phases:
   install:
     runtime-versions:
